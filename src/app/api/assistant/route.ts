@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { askGemini, GeminiHistoryMessage } from '../../../lib/gemini';
 
+export const maxDuration = 60;
+
 // Input validation schema using Zod
 const requestBodySchema = z.object({
   message: z.string().min(1).max(2000),

@@ -1,0 +1,39 @@
+# Exclude node modules and cached files
+node_modules/
+.next/
+out/
+build/
+
+# Exclude git repository files
+.git/
+.github/
+.gitignore
+
+# Exclude environment secrets
+.env*
+!.env.example
+
+# Exclude testing reports and coverage directories
+coverage/
+playwright-report/
+test-results/
+.nyc_output/
+
+# Exclude local script automations and assets
+deploy.sh
+cloudbuild.yaml
+DEPLOYMENT_AUDIT.md
+DEPLOYMENT_GUIDE.md
+LIGHTHOUSE_CHECKLIST.md
+MONITORING_SETUP.md
+PRODUCTION_READINESS_REPORT.md
+
+# Exclude IDE folders and caches
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store

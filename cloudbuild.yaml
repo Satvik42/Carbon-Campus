@@ -1,0 +1,68 @@
+# =========================================================================
+# Google Cloud Build Pipeline for Carbon Compass
+# =========================================================================
+# This configuration builds the production Next.js Docker image, pushes
+# it to Google Artifact Registry, and deploys it to Cloud Run.
+# =========================================================================
+
+steps:
+  # -------------------------------------------------------------------------
+  # 🐳 Step 1: Build the optimized container image
+  # -------------------------------------------------------------------------
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'build-image'
+    args:
+      - 'build'
+      - '-t'
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_AR_REPO}/${_SERVICE_NAME}:${COMMIT_SHA}'
+      - '.'
+
+  # -------------------------------------------------------------------------
+  # 🚀 Step 2: Push the container image to Google Artifact Registry
+  # -------------------------------------------------------------------------
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'push-image'
+    dependsOn: ['build-image']
+    args:
+      - 'push'
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_AR_REPO}/${_SERVICE_NAME}:${COMMIT_SHA}'
+
+  # -------------------------------------------------------------------------
+  # 🌍 Step 3: Deploy the container to Google Cloud Run
+  # -------------------------------------------------------------------------
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'deploy-run'
+    entrypoint: 'gcloud'
+    dependsOn: ['push-image']
+    args:
+      - 'run'
+      - 'deploy'
+      - '${_SERVICE_NAME}'
+      - '--image'
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_AR_REPO}/${_SERVICE_NAME}:${COMMIT_SHA}'
+      - '--region'
+      - '${_REGION}'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      # Mount GEMINI_API_KEY from Secret Manager to the container runtime environment variable
+      - '--set-secrets'
+      - 'GEMINI_API_KEY=GEMINI_API_KEY:latest'
+
+# -------------------------------------------------------------------------
+# 🎯 Images to track in build logs
+# -------------------------------------------------------------------------
+images:
+  - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_AR_REPO}/${_SERVICE_NAME}:${COMMIT_SHA}'
+
+# -------------------------------------------------------------------------
+# ⚙️ Substitution Variables with Defaults
+# -------------------------------------------------------------------------
+substitutions:
+  _REGION: 'us-central1'
+  _AR_REPO: 'carbon-compass-repo'
+  _SERVICE_NAME: 'carbon-compass'
+
+options:
+  # Store logs strictly in Cloud Logging for compliance and security
+  logging: 'CLOUD_LOGGING_ONLY'
