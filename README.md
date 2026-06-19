@@ -4,14 +4,14 @@ An AI-Powered Carbon Decision Assistant built as a premium web application to he
 
 ---
 
-## 🌟 Hero Philosophy
+##  Hero Philosophy
 *People don't care about numbers. They care about decisions.*
 
 Unlike traditional carbon calculators that overwhelm users with graphs and metrics, **Carbon Compass** acts as an interactive assistant. It answers "What If" scenarios in real-time, translates CO₂ kilograms into physical stories, and provides a personalized, AI-informed roadmap.
 
 ---
 
-## 🎯 Challenge & Solution Brief
+##  Challenge & Solution Brief
 
 ### 1. Chosen Vertical
 * **Primary Focus**: **UN SDG 13: Climate Action** (Specifically targeted at Individual Behavioral Decarbonization & Lifestyle Carbon Simulation).
@@ -36,7 +36,7 @@ Unlike traditional carbon calculators that overwhelm users with graphs and metri
 
 ---
 
-## 🛠️ Technology Stack
+##  Technology Stack
 - **Framework**: Next.js 15 (App Router, React 19)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS (v4)
@@ -48,7 +48,7 @@ Unlike traditional carbon calculators that overwhelm users with graphs and metri
 
 ---
 
-## 📂 Project Architecture
+##  Project Architecture
 
 ```
 src/
@@ -83,7 +83,7 @@ src/
 
 ---
 
-## 💾 Storage Design (IndexedDB)
+##  Storage Design (IndexedDB)
 The application is **privacy-first**. No signup, login, or cookies are implemented. All data resides in browser sandbox databases using **Dexie.js**:
 
 1. **`profile`**: Stores the initial user lifestyle profile (diet, car type, commute frequency, solar panels, air conditioning settings).
@@ -92,7 +92,7 @@ The application is **privacy-first**. No signup, login, or cookies are implement
 
 ---
 
-## 🚀 Setup & Installation
+##  Setup & Installation
 
 ### 1. Clone & Install Dependencies
 ```bash
@@ -113,7 +113,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 🧪 Testing
+##  Testing
 
 ### Run Unit & Component Tests (Vitest)
 ```bash
@@ -129,7 +129,7 @@ npm run test:e2e
 
 ---
 
-## ♿ Accessibility & Design
+##  Accessibility & Design
 - **WCAG 2.2 AA Compliance**: Semantic HTML5 tags (`<main>`, `<header>`, `<section>`), custom high-contrast focus rings, custom labels connected to form inputs via `for/id`.
 - **Keyboard Friendly**: Fully navigatable using `Tab`, `Shift+Tab`, `Space`, `Enter`, and Arrow keys.
 - **Reduced Motion**: Respects browser settings. Toggles off heavy Framer Motion transitions automatically if `prefers-reduced-motion` is active.
